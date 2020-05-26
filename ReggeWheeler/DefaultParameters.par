@@ -1,0 +1,5 @@
+// An example parameter file to read in the parameters required for ReggeWheeler
+
+Lmax = 10
+spin = 2
+r0 = 10.0
