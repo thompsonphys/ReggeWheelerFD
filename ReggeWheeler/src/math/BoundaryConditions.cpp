@@ -1,4 +1,4 @@
-#include "ReggeWheeler.h"
+#include "../main/ReggeWheeler.h"
 
 std::complex<double> RecurrenceHorizon(int nIn, int sIn, int lIn, double w, double M, std::complex<double> Anm1, std::complex<double> Anm2)
 {
@@ -37,14 +37,15 @@ std::complex<double> RecurrenceInfinity(int nIn, int sIn, int lIn, double w, dou
 	std::complex<double> term1, term2, denominator;
 
 	term1 = 1i * (l + l2 + n - n2);
-	term2 = 1i * 2. * M * w * (1. - 2. * n + n2 - s2);;
+	term2 = 1i * 2. * M * w * (1. - 2. * n + n2 - s2);
+	;
 
 	denominator = 2. * n;
 
 	return (term1 * Anm1 + term2 * Anm2) / denominator;
 }
 
-bool Summation(std::complex<double>* J, std::complex<double>* dJ, double factor, double dfactor, int s, int l, double w, double M, std::complex<double>(*Recurrence)(int, int, int, double, double, std::complex<double>, std::complex<double>), int Nmax, int N )
+bool Summation(std::complex<double> *J, std::complex<double> *dJ, double factor, double dfactor, int s, int l, double w, double M, std::complex<double> (*Recurrence)(int, int, int, double, double, std::complex<double>, std::complex<double>), int Nmax, int N)
 {
 	int n;
 	std::complex<double> An = 1., Anm1 = 0., Anm2 = 0., lastJ = 0., lastdJ = 0., increment = 0.;
@@ -72,19 +73,19 @@ bool Summation(std::complex<double>* J, std::complex<double>* dJ, double factor,
 
 		Anm2 = Anm1;
 		Anm1 = An;
-		An = (*Recurrence)(n+1, s, l, w, M, Anm1, Anm2);
+		An = (*Recurrence)(n + 1, s, l, w, M, Anm1, Anm2);
 		fN *= factor;
 	}
-	
+
 	return false;
 }
 
-void HorizonBC(std::complex<double>* psi_final, std::complex<double>* dpsi_final, double* rfinal, int s, int l, double w, double M)
+void HorizonBC(std::complex<double> *psi_final, std::complex<double> *dpsi_final, double *rfinal, int s, int l, double w, double M)
 {
 	using namespace std::complex_literals;
 
 	std::complex<double> J = 0., dJ = 0.;
-	double factor = 0., dfactor = 0., r , r2, drstardr, step;
+	double factor = 0., dfactor = 0., r, r2, drstardr, step;
 
 	int k = 0;
 	int kmax = 3;
@@ -116,7 +117,7 @@ void HorizonBC(std::complex<double>* psi_final, std::complex<double>* dpsi_final
 	*dpsi_final = J * dpsi_exp + dJ * psi_exp;
 }
 
-void InfinityBC(std::complex<double>* psi_final, std::complex<double>* dpsi_final, double* rfinal, int s, int l, double w, double M, double r0)
+void InfinityBC(std::complex<double> *psi_final, std::complex<double> *dpsi_final, double *rfinal, int s, int l, double w, double M, double r0)
 {
 	using namespace std::complex_literals;
 
@@ -128,7 +129,7 @@ void InfinityBC(std::complex<double>* psi_final, std::complex<double>* dpsi_fina
 
 	// we initialize at r = r0
 	reval = r0 + 2. * PI / w;
-	dfactor = - w;
+	dfactor = -w;
 
 	do
 	{

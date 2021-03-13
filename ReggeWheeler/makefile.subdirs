@@ -1,0 +1,12 @@
+NEWLIB := lib$(NAME).a 
+
+LIBDIR = $(TOP)/lib 
+
+OBJDIR = $(LIBDIR)/obj/$(NAME)
+OBJSWITHPATH = $(addprefix $(OBJDIR)/,$(OBJS))
+
+$(LIBDIR)/$(NEWLIB): $(OBJSWITHPATH)
+	ar rucs $@ $(OBJSWITHPATH)
+
+$(OBJDIR)/%.o: %.c $(TOP)/src/main/ReggeWheeler.h makefile
+	$(COMPILER) $(CFLAGS) -o $@ -c $*.c 

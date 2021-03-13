@@ -7,4 +7,4 @@
 #include <complex>
 #include <assert.h>
 
-#include "RW_auto_generated.h"
+#include "rwfd_automatic_include.h"

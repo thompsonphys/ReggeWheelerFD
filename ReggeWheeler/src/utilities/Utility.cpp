@@ -7,6 +7,6 @@ int factorial(int n)
 
 double n(int l)
 {
-	return ( (l - 1.) * (l + 2.) / 2. );
+	double dbl = double(l);
+	return ((dbl - 1.) * (dbl + 2.) / 2.);
 }
-

@@ -10,11 +10,11 @@ double AngularMomentum(double r, double M);
 double Energy(double r, double M);
 
 // t-component of circular geodesic four-velocity, up and down
-double utDown(double r, double M);
+double ut_Down(double r, double M);
 
-double utUp(double r, double M);
+double ut_Up(double r, double M);
 
 // phi-component of circular geodesic four-velocity, up and down
-double upDown(double r, double M);
+double uphi_Down(double r, double M);
 
-double upUp(double r, double M);
+double uphi_Up(double r, double M);

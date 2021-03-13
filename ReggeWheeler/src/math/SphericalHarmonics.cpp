@@ -1,18 +1,21 @@
-#include "ReggeWheeler.h"
+#include "../main/ReggeWheeler.h"
 
-class Harmonic {
+class Harmonic
+{
 public:
-	int s;			//Spin weight (if applicable)
-	int l;			//Orbital index
-	int m;			//Azimuthal index
-	double theta;	//Polar angle
-	double phi;		//Azimuthal angle
+	int s;		  //Spin weight (if applicable)
+	int l;		  //Orbital index
+	int m;		  //Azimuthal index
+	double theta; //Polar angle
+	double phi;	  //Azimuthal angle
 	std::complex<double> value;
 	std::complex<double> dTheta;
 	std::complex<double> d2Theta;
 	std::complex<double> dPhi;
 	std::complex<double> d2Phi;
-	Harmonic(int s_in, int l_in, int m_in, double theta_in, double phi_in, bool ComputeDerivatives) { //Constructor for Harmonic class
+	Harmonic(int s_in, int l_in, int m_in, double theta_in, double phi_in, bool ComputeDerivatives)
+	{
+		//Constructor for Harmonic class
 		s = s_in;
 		l = l_in;
 		m = m_in;
@@ -34,7 +37,7 @@ public:
 		}
 		else
 		{
-			value =  Slm(s, l, m, theta, phi);
+			value = Slm(s, l, m, theta, phi);
 		}
 		if (ComputeDerivatives)
 		{
@@ -43,7 +46,6 @@ public:
 	}
 	void compute_derivatives()
 	{
-		
 	}
 };
 
@@ -66,7 +68,7 @@ std::complex<double> Ylm(int l, int m, double theta, double phi)
 {
 	using namespace std::complex_literals;
 	double mdbl = double(m);
-	return assoc_legendre(l, m, theta) * exp( 1i * mdbl * phi );
+	return assoc_legendre(l, m, theta) * exp(1i * mdbl * phi);
 }
 
 std::complex<double> Ylm(int s, int l, int m, double theta, double phi)
@@ -80,11 +82,11 @@ std::complex<double> Ylm(int s, int l, int m, double theta, double phi)
 //theta derivatives of spherical harmonics
 std::complex<double> Ylm_dTheta(int l, int m, double theta, double phi)
 {
-	if (l==0)
+	if (l == 0)
 	{
 		return 0.;
 	}
-	else 
+	else
 	{
 		std::complex<double> term1 = m / tan(theta) * Ylm(l, m, theta, phi);
 		if (m == l)
@@ -107,7 +109,7 @@ std::complex<double> Ylm_d2Theta(int l, int m, double theta, double phi)
 	}
 	else
 	{
-		std::complex<double> term1 = m * ( m / pow(tan(theta),2) - 1. / pow(sin(theta),2) ) * Ylm(l, m, theta, phi);
+		std::complex<double> term1 = m * (m / pow(tan(theta), 2) - 1. / pow(sin(theta), 2)) * Ylm(l, m, theta, phi);
 		if (m == l)
 		{
 			return term1;
@@ -165,7 +167,7 @@ std::complex<double> Ylm_d2Phi(int l, int m, double theta, double phi)
 		{
 			using namespace std::complex_literals;
 			double dblm = double(m);
-			return - dblm * dblm * Ylm(l, m, theta, phi);
+			return -dblm * dblm * Ylm(l, m, theta, phi);
 		}
 	}
 }
